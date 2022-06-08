@@ -1,0 +1,25 @@
+{
+  "posts": [{
+    "id": "item-123",
+    "section": "posts",
+    "title": "Hello World",
+    "body": "This is some text",
+    "gallery": []
+  }, {
+    "id": "item-345",
+    "section": "posts",
+    "title": "Hi",
+    "body": "This is some more text",
+    "gallery": []
+  }],
+  "settings": {
+    "site_title": "Vue Headless CMS",
+    "preview_url": "https:\/\/examplepage.net",
+    "gallery_image_width": 1000
+  },
+  "ui_settings": {
+    "image_title": "title",
+    "image_alt": "",
+    "rte_buttons": ["bold", "italic", "link", "list", "h2", "h3"]
+  }
+}

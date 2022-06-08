@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: Helvetica, arial, sans-serif;
+    }
+
+    .wrap {
+      margin: 0 auto;
+      margin-top: 50px;
+      width: 800px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <div class="wrap" x-data="app()">
+
+    <template x-if="data.posts.length">
+      <div>
+
+        <section id="posts" class="section" data-fields="title=txt&amp;body=rte&amp;gallery=gal">
+
+          <i class="fa fa-plus add"></i>
+
+
+          <template x-for="x in data.posts.filter(z => z.section == 'posts')">
+            <div class="edit" :id="x.id">
+              <h1 x-text="x.title">Hello World</h1>
+              <p x-html="x.body">This is some text</p>
+              <template x-for="img in x.gallery">
+                <img :src="img.filename" class="img-fluid">
+              </template>
+            </div>
+          </template>
+
+
+        </section>
+
+        <section id="header" class="section" data-fields="title=txt&amp;body=rte">
+          <div class="edit" id="item-header">
+            <template x-for="x in data.posts.filter(z => z.section == 'header')">
+              <h1 x-text="x.title">Hello</h1>
+            </template>
+          </div>
+        </section>
+
+      </div>
+    </template>
+  </div>
+
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script>
+    function app() {
+      return {
+        data: {
+          posts: []
+        },
+        init() {
+          console.log('init')
+          fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+              this.data = data;
+
+              localStorage.setItem('data', JSON.stringify(data))
+            });
+        },
+        refresh() {
+          this.data = JSON.parse(localStorage.getItem('data'))
+        }
+      }
+    }
+
+    function render() {
+
+      let modal = document.querySelector('.wrap')
+      modal._x_dataStack[0].refresh();
+    }
+  </script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
